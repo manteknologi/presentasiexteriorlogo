@@ -63,12 +63,12 @@ var griya = {
 
 
     // prepare stats
-    this.stats = new Stats();
+    /*this.stats = new Stats();
     this.stats.domElement.style.position = 'fixed';
     this.stats.domElement.style.right = '20px';
     this.stats.domElement.style.top = '20px';
     this.stats.domElement.style.zIndex = 1;
-    this.container.appendChild( this.stats.domElement );
+    this.container.appendChild( this.stats.domElement );*/
 	
       
 
@@ -150,7 +150,7 @@ this.scene.add(new THREE.PointLightHelper(spotLight, 1));
 
   
     // load a model
-   this.loadModel1();
+    this.loadModel1();
   },
   loadModel1: function() {
 
@@ -160,10 +160,16 @@ this.scene.add(new THREE.PointLightHelper(spotLight, 1));
 			
 					*/
     var oLoader = new THREE.OBJMTLLoader();
-     oLoader.load('models/3dtext.obj', 'models/3dtext.mtl', function(object) {
+    oLoader.load('models/3dtext.obj', 'models/3dtext.mtl', function(object) {
 OBJLoaded=object;
-	
-		  object.position.x = 0;
+ // for ( var i = 0, l = object.children.length; i < l; i ++ ) {
+
+  //object.children[ i ].material.map = texture;
+
+   // }
+
+	//alert(object.children.length);
+      object.position.x = 0;
       object.position.y = 0;
       object.position.z = 0;
       object.scale.set(2, 2, 2);
@@ -171,6 +177,8 @@ OBJLoaded=object;
       griya.scene.add(object);
     objects.push( object.children[ 3 ] );
     });
+	
+		 
   }
 };
 
@@ -202,8 +210,15 @@ function loadTexture( path ) {
 	//window.addEventListener( 'mousedown', zoomModel, false,4 );
 	//window.addEventListener( 'mousedown', rot(9), false );
 document.addEventListener( 'mousedown', onDocumentMouseDowns, false );
+//document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 
-
+document.addEventListener('load', function(){ // on page load
+ 
+					document.body.addEventListener('touchstart', function(e){
+					alert(e.changedTouches[0].pageX) // alert pageX coordinate of touch point
+					}, false)
+ 
+				}, false);
 
 function onDocumentMouseDowns( event ){
         event.preventDefault();
@@ -218,9 +233,9 @@ function onDocumentMouseDowns( event ){
         //console.log( intersects[0].point);
   if ( intersects.length > 0 ) {
             _SELECTED_DOWN = true;
-			OBJLoaded.children[ 3 ];
-            window.open('http://theayoma.com', '_self', ''); window.close();
-			//alert("selected!");
+			window.open('http://theayoma.com', '_self', ''); window.close();
+			
+            //alert("selected!");
     }  
 //alert(intersects.length);	
     }
@@ -359,7 +374,7 @@ function animate() {
  
   
   render();
-  update();
+  //update();
 }
 
 // Update controls and stats
