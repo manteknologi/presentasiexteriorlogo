@@ -117,12 +117,12 @@ var griya = {
 	
 	var materials = [
 
-					loadTexture( 'textures/cube/skybox/px.jpg' ), // right
-					loadTexture( 'textures/cube/skybox/nx.jpg' ), // left
-					loadTexture( 'textures/cube/skybox/py.jpg' ), // top
-					loadTexture( 'textures/cube/skybox/ny.jpg' ), // bottom
-					loadTexture( 'textures/cube/skybox/pz.jpg' ), // back
-					loadTexture( 'textures/cube/skybox/nz.jpg' )  // front
+					loadTexture( 'textures/cube/panobox/px.jpg' ), // right
+					loadTexture( 'textures/cube/panobox/nx.jpg' ), // left
+					loadTexture( 'textures/cube/panobox/py.jpg' ), // top
+					loadTexture( 'textures/cube/panobox/ny.jpg' ), // bottom
+					loadTexture( 'textures/cube/panobox/pz.jpg' ), // back
+					loadTexture( 'textures/cube/panobox/nz.jpg' )  // front
 
 				];
 
@@ -210,8 +210,15 @@ function loadTexture( path ) {
 	//window.addEventListener( 'mousedown', zoomModel, false,4 );
 	//window.addEventListener( 'mousedown', rot(9), false );
 document.addEventListener( 'mousedown', onDocumentMouseDowns, false );
+//document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 
-
+document.addEventListener('load', function(){ // on page load
+ 
+					document.body.addEventListener('touchstart', function(e){
+					alert(e.changedTouches[0].pageX) // alert pageX coordinate of touch point
+					}, false)
+ 
+				}, false);
 
 function onDocumentMouseDowns( event ){
         event.preventDefault();
